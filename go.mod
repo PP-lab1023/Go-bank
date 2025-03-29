@@ -1,6 +1,6 @@
 module github.com/PP-lab1023/Go-bank
 
-go 1.24
+go 1.23
 
 require (
 	github.com/lib/pq v1.10.9
