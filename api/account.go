@@ -2,7 +2,6 @@ package api
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 
 	db "github.com/PP-lab1023/Go-bank/db/sqlc"
