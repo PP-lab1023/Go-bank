@@ -8,7 +8,6 @@ import (
 	db "github.com/PP-lab1023/Go-bank/db/sqlc"
 	"github.com/PP-lab1023/Go-bank/util"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/lib/pq"
 )
 
@@ -80,7 +79,6 @@ type loginUserRequest struct {
 }
 
 type loginUserResponse struct {
-	SessionID             uuid.UUID    `json:"session_id"`
 	AccessToken           string       `json:"access_token"`
 	AccessTokenExpiresAt  time.Time    `json:"access_token_expires_at"`
 	RefreshToken          string       `json:"refresh_token"`
