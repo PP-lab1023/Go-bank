@@ -30,10 +30,12 @@ func (e eqCreateUserParamsMatcher) Matches(x interface{}) bool {
 	if !ok {
 		return false
 	}
+
 	err := util.CheckPassword(e.password, arg.HashedPassword)
 	if err != nil {
 		return false
 	}
+
 	e.arg.HashedPassword = arg.HashedPassword
 	return reflect.DeepEqual(e.arg, arg)
 }
@@ -70,7 +72,7 @@ func TestCreateUserAPI(t *testing.T) {
 					Email:    user.Email,
 				}
 				store.EXPECT().
-					CreateUser(gomock.Any(), EqCreateUserParams(arg, password)). // Cannot use gomock.eq() here. Because the hash function gets two different hash values with the same password.
+					CreateUser(gomock.Any(), EqCreateUserParams(arg, password)).
 					Times(1).
 					Return(user, nil)
 			},
@@ -196,29 +198,29 @@ func TestCreateUserAPI(t *testing.T) {
 }
 
 func randomUser(t *testing.T) (user db.User, password string) {
-	password = util.RandomString(6)
-	hashedPassword, err := util.HashPassword(password)
-	require.NoError(t, err)
+    password = util.RandomString(6)
+    hashedPassword, err := util.HashPassword(password)
+    require.NoError(t, err)
 
-	user = db.User{
-		Username:       util.RandomOwner(),
-		HashedPassword: hashedPassword,
-		FullName:       util.RandomOwner(),
-		Email:          util.RandomEmail(),
-	}
-	return
+    user = db.User{
+        Username:       util.RandomOwner(),
+        HashedPassword: hashedPassword,
+        FullName:       util.RandomOwner(),
+        Email:          util.RandomEmail(),
+    }
+    return
 }
 
 func requireBodyMatchUser(t *testing.T, body *bytes.Buffer, user db.User) {
-	data, err := io.ReadAll(body)
-	require.NoError(t, err)
+    data, err := io.ReadAll(body)
+    require.NoError(t, err)
 
-	var gotUser db.User
-	err = json.Unmarshal(data, &gotUser)
+    var gotUser db.User
+    err = json.Unmarshal(data, &gotUser)
 
-	require.NoError(t, err)
-	require.Equal(t, user.Username, gotUser.Username)
-	require.Equal(t, user.FullName, gotUser.FullName)
-	require.Equal(t, user.Email, gotUser.Email)
-	require.Empty(t, gotUser.HashedPassword)
+    require.NoError(t, err)
+    require.Equal(t, user.Username, gotUser.Username)
+    require.Equal(t, user.FullName, gotUser.FullName)
+    require.Equal(t, user.Email, gotUser.Email)
+    require.Empty(t, gotUser.HashedPassword)
 }
