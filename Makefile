@@ -8,7 +8,7 @@ dropdb:
 	docker exec -it postgres17 dropdb Go-bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/Go-bank?sslmode=disable" -verbose up
+	migrate -path db/migration -database "postgresql://root:k0IiaApiqQdybKOLZyrZ@go-bank.clowmw4qw7u2.ap-northeast-3.rds.amazonaws.com:5432/go_bank" -verbose up
 
 migrateup1:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/Go-bank?sslmode=disable" -verbose up 1
