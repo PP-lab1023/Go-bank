@@ -10,6 +10,7 @@ dropdb:
 	docker exec -it postgres17 dropdb Go-bank
 
 migrateup:
+ ft/dbdocs
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
 
 migrateup1:
