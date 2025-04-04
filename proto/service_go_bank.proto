@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
 
-option go_package = "github.com/techschool/simplebank/pb";
+option go_package = "github.com/PP-lab1023/Go-bank/pb";
 
 service GoBank {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
