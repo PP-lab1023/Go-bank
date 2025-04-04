@@ -1,4 +1,4 @@
-DB_URL=postgresql://root:secret@localhost:5432/Go-bank?sslmode=disable
+DB_URL=postgresql://root:secret@localhost:5432/go-bank?sslmode=disable
 
 network:
 	docker network create bank-network
@@ -10,10 +10,10 @@ mysql:
 	docker run --name mysql8 -p 3306:3306  -e MYSQL_ROOT_PASSWORD=secret -d mysql:8
 
 createdb:
-	docker exec -it postgres createdb --username=root --owner=root Go-bank
+	docker exec -it postgres createdb --username=root --owner=root go-bank
 
 dropdb:
-	docker exec -it postgres dropdb Go-bank
+	docker exec -it postgres dropdb go-bank
 
 migrateup:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
@@ -46,7 +46,7 @@ server:
 	go run main.go
 
 mock:
-	mockgen -package mockdb -destination db/mock/store.go github.com/PP-lab1023/Go-bank/db/sqlc Store 
+	mockgen -package mockdb -destination db/mock/store.go github.com/PP-lab1023/go-bank/db/sqlc Store 
 
 proto:
 	rm -f pb/*.go
